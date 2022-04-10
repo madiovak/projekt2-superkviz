@@ -8,8 +8,15 @@
 	--seda: #e0e0e0;
 }
 
-html { box-sizing: border-box; }
-*, ::before, :after { box-sizing: inherit; }
+html {
+	box-sizing: border-box;
+}
+
+*,
+::before,
+:after {
+	box-sizing: inherit;
+}
 
 body {
 	margin: 0;
@@ -19,7 +26,10 @@ body {
 	background-image: linear-gradient(to top, var(--cervena) 0%, var(--oranzova) 100%);
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3,
+h4 {
 	font-family: 'Bangers', cursive;
 	font-weight: normal;
 }
@@ -73,7 +83,7 @@ h1 {
 
 #obrazek {
 	padding: 5px;
-	width: 100%;
+	width: 35%;
 	height: auto;
 	border-radius: 50%;
 	border: 3px dotted var(--cervena);
