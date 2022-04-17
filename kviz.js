@@ -14,6 +14,62 @@ let otazky = [
         varianty: ["Tuxu", "Hallstattu", "Alpbachu"],
         spravnaOdpoved: 1
     },
+    {
+        cislo: "Otázka 3",
+        otazka: "Se svými 85 metry na šířku je nejširším vodopádem ve Východních Alpách. Řeč je o :",
+        foto: "foto/03_grawa.jpg",
+        varianty: ["Grawa Wasserfall", "Gollinger Wasserfall", "Eifersbacher Wasserfall"],
+        spravnaOdpoved: 0
+    },
+    {
+        cislo: "Otázka 4",
+        otazka: "Z Trisselwandu uvidíš jezera :",
+        foto: "foto/04_trisselwand.jpg",
+        varianty: ["Altausseer See a Toplitzsee", "Altausseer See a Grundlsee", "Grundlsee a Toplitzsee"],
+        spravnaOdpoved: 1
+    },
+    {
+        cislo: "Otázka 5",
+        otazka: "Rakouské ledovce se za rok zmenší přibližně o :",
+        foto: "foto/05_hintertux.jpg",
+        varianty: ["10 m", "25 m", "50 m"],
+        spravnaOdpoved: 2
+    },
+    {
+        cislo: "Otázka 6",
+        otazka: "Pokud chcete nejtypičtější fotku z Zillertalských Alp musí vyrazit na:",
+        foto: "foto/06_olpererhutte.jpg",
+        varianty: ["Olpererhütte", "Ahornspitze", "Wasserfallweg Hintertux"],
+        spravnaOdpoved: 0
+    },
+    {
+        cislo: "Otázka 7",
+        otazka: "Na nejvyšší vodopády v Rakousku budete muset do: ",
+        foto: "foto/07_krimml.jpg",
+        varianty: ["Hinterglemmu", "Zell am See", "Krimmlu"],
+        spravnaOdpoved: 2
+    },
+    {
+        cislo: " Otázka 8",
+        otazka: "Alpenzoo najdete v ",
+        foto: "foto/08_alpenzoo.jpg",
+        varianty: ["Salzburgu", "Innsbrucku", "Kitzbuhelu"],
+        spravnaOdpoved: 1
+    },
+    {
+        cislo: "Otázka 9",
+        otazka: "Úplně nejlepší relax si užijete na lodi na :",
+        foto: "foto/09_zellersee.jpg",
+        varianty: ["Mondsee", "Achensee", "Zeller See"],
+        spravnaOdpoved: 2
+    },
+    {
+        cislo: "Otázka 10",
+        otazka: "Cestou do Alp nebo z Alp se nezapomeňtě stavit na skvělou zmzlinu v :",
+        foto: "foto/10_eisfee.jpg",
+        varianty: ["Mondsee", "Salzburgu", "Saalbachu"],
+        spravnaOdpoved: 0
+    }
 ]
 
 
@@ -21,64 +77,96 @@ let otazky = [
 zobrazOtazku(0);
 let zvoleneVarianty = [];
 
+function vytvorElement(konfigurace) {
+    let element = document.createElement(konfigurace.typ);
+
+    if (konfigurace.id != undefined) {
+        element.id = konfigurace.id;
+    }
+
+    if (konfigurace.trida != undefined) {
+        element.classList.add(konfigurace.trida);
+    }
+
+    if (konfigurace.text != undefined) {
+        element.textContent = konfigurace.text;
+    }
+
+    if (konfigurace.src != undefined) {
+        element.src = konfigurace.src;
+    }
+
+    if (konfigurace.innerHTML != undefined) {
+        element.innerHTML = konfigurace.innerHTML;
+    }
+
+    return element;
+}
+
 function zobrazOtazku(cisloOtazky) {
-    let kviz = document.createElement("div");
-    kviz.classList.add("kviz");
-    kviz.id = "kviz";
+    let kviz = vytvorElement({
+        typ: "div",
+        id: "kviz",
+        trida: "kviz"
+    });
     document.querySelector("body").appendChild(kviz);
 
-
-    let poradi = document.createElement("div");
-    poradi.id = "poradi";
+    let poradi = vytvorElement({
+        typ: "div",
+        id: "poradi",
+        text: otazky[cisloOtazky].cislo + " / " + otazky.length
+    });
     kviz.appendChild(poradi);
-    poradi.textContent = otazky[cisloOtazky].cislo + " / " + otazky.length;
 
-    let otazkaDiv = document.createElement("div");
-    otazkaDiv.id = "otazka";
+    let otazkaDiv = vytvorElement({
+        typ: "div",
+        id: "otazka",
+        text: otazky[cisloOtazky].otazka
+    })
     poradi.appendChild(otazkaDiv);
-    otazkaDiv.textContent = otazky[cisloOtazky].otazka;
 
-    let obsah = document.createElement("div");
-    obsah.className = "obsah";
+    let obsah = vytvorElement({
+        typ: "div",
+        trida: "obsah"
+    })
     kviz.appendChild(obsah);
 
-
-    let obrazek = document.createElement("img");
-    obrazek.id = "obrazek";
-    obrazek.className = "foto";
+    let obrazek = vytvorElement({
+        typ: "img",
+        id: "obrazek",
+        trida: "foto",
+        src: otazky[cisloOtazky].foto
+    })
     obsah.appendChild(obrazek);
-    obrazek.src = otazky[cisloOtazky].foto;
 
-
-    let moznosti = document.createElement("div");
-    moznosti.id = "moznosti";
+    let moznosti = vytvorElement({
+        typ: "div",
+        id: "moznosti"
+    })
     obsah.appendChild(moznosti);
 
-    let odpovedi = document.createElement("ul");
-    odpovedi.id = "odpovedi";
+    let odpovedi = vytvorElement({
+        typ: "ul",
+        id: "odpovedi"
+    })
     moznosti.appendChild(odpovedi);
 
-
-
     for (let i = 0; i < otazky[cisloOtazky].varianty.length; i++) {
-        let li = document.createElement("li");
-        li.innerHTML = otazky[cisloOtazky].varianty[i];
-        li.id = "odpovedi";
+        let li = vytvorElement({
+            typ: "li",
+            id: "odpovedi",
+            innerHTML: otazky[cisloOtazky].varianty[i]
+        })
         odpovedi.appendChild(li);
 
         li.onclick = function () { priKliknuti(i, ++cisloOtazky) };
 
     }
-
 }
 
 
-
 function priKliknuti(index, cisloOtazky) {
-    // Zjistit na co se kliklo
-
     // Uložit zvolenou variantu
-
     zvoleneVarianty.push(index);
 
     // Vygenerovat další otázku nebo vyhodnocení
@@ -88,70 +176,68 @@ function priKliknuti(index, cisloOtazky) {
     if (cisloOtazky < otazky.length) {
         zobrazOtazku(cisloOtazky);
     } else {
-        console.log("hodnoceni");
-        let kviz = document.createElement("div");
-        kviz.classList.add("kviz");
-        kviz.id = "kviz";
+        let kviz = vytvorElement({
+            typ: "div",
+            id: "kviz",
+            trida: "kviz"
+        })
         document.querySelector("body").appendChild(kviz);
 
-
-
-        let nadpis = document.createElement("h2");
-        nadpis.id = "poradi";
+        let nadpis = vytvorElement({
+            typ: "h2",
+            id: "poradi",
+            innerHTML: "Tvoje hodnocení"
+        })
         kviz.appendChild(nadpis);
-        nadpis.innerHTML = "Tvoje hodnocení";
 
         let pocetSpravnych = 0;
 
-
-
-
-
         for (let j = 0; j < otazky.length; j++) {
-
-
-
-            let otazkaDiv = document.createElement("div");
-            otazkaDiv.id = "odpovedi";
+            let konkretniOtazka = otazky[j];
+            let otazkaDiv = vytvorElement({
+                typ: "div",
+                id: "odpovedi",
+            })
             kviz.appendChild(otazkaDiv);
-            let dotaz = document.createElement("h3");
+
+            let dotaz = vytvorElement({
+                typ: "h3",
+                innerHTML: (j + 1) + ". " + konkretniOtazka.otazka
+            })
             otazkaDiv.appendChild(dotaz);
-            dotaz.innerHTML = (j + 1) + ". " + otazky[j].otazka;
 
-            let vyhodnoceni = document.createElement("p");
+            let vyhodnoceni = vytvorElement({
+                typ: "p",
+                innerHTML: "Tvoje odpověď je: " + konkretniOtazka.varianty[zvoleneVarianty[j]]
+            })
             otazkaDiv.appendChild(vyhodnoceni);
-            let y = otazky[j].varianty[zvoleneVarianty[j]];
-            vyhodnoceni.innerHTML = "Tvoje odpověď je: " + y;
 
-            let spravnost = document.createElement("p");
-            otazkaDiv.appendChild(spravnost);
-
-
-            if (otazky[j].spravnaOdpoved == zvoleneVarianty[j]) {
-                spravnost.innerHTML = "To je SPRÁVNĚ."
+            let spravnostObsah;
+            if (konkretniOtazka.spravnaOdpoved == zvoleneVarianty[j]) {
+                spravnostObsah = "To je SPRÁVNĚ."
                 pocetSpravnych++;
             } else {
-                let x = otazky[j].spravnaOdpoved;
-                spravnost.innerHTML = "Správná odpověď je: " + otazky[j].varianty[x];
+                spravnostObsah = "Správná odpověď je: " + konkretniOtazka.varianty[otazky[j].spravnaOdpoved];
             }
+
+            let spravnost = vytvorElement({
+                typ: "p",
+                innerHTML: spravnostObsah
+            })
+            otazkaDiv.appendChild(spravnost);
 
 
         }
 
-        let vysledek = document.createElement("h2");
-        vysledek.id = "poradi";
-        kviz.appendChild(vysledek);
-
-
         let uspesnost = (pocetSpravnych / otazky.length) * 100;
-        vysledek.innerHTML = "Správně " + pocetSpravnych + " ze " + otazky.length + " otázek. Úspěšnost " + uspesnost + "%.";
+        let vysledek = vytvorElement({
+            typ: "h2",
+            id: "poradi",
+            innerHTML: "Správně " + pocetSpravnych + " ze " + otazky.length + " otázek. Úspěšnost " + uspesnost + "%."
+        })
 
-
+        kviz.appendChild(vysledek);
     }
-
-
-
-
 }
 
 
